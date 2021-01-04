@@ -1,0 +1,4 @@
+Apakah ada kaitan antara abstract class dengan inheritance? Apakah ada kaitan antara interface dan
+inheritance? 
+ ya, abstract class berkaitan dengan interface dimana jika ada sebuah abstract class maka bisa diterapkan secara maksimal dengan adanya inheritance. Subclass akan menimpa method yang ada pada superclassnya yaitu class abstractnya.
+ ya, interface berkaitan juga dengan inheritance karena sebuah method interface akan diwariskan pada subclassnya dimana methodnya nanti akan dioverride.

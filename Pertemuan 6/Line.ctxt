@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Line
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Line\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=x1\ y1\ x2\ y2
+comment1.target=Line(int,\ int,\ int,\ int)
+comment1.text=\ method\ constructor\ ini\ digunakan\r\nuntuk\ menciptakan\ suatu\ objek\ dengan\ parameter
+comment2.params=begin\ end
+comment2.target=Line(Point,\ Point)
+comment2.text=\ method\ constructor\ ini\ digunakan\r\nuntuk\ menciptakan\ suatu\ objek\ dengan\ parameter
+comment3.params=
+comment3.target=Point\ getBegin()
+comment3.text=\ method\ Accessor\ ini\ yang\ digunakan\ untuk\ mengembalikan\r\nnilai\ dari\ begin
+comment4.params=begin
+comment4.target=void\ setBegin(Point)
+comment4.text=\ method\ Mutator\ yang\ digunakan\ untuk\ mengubah\r\nsuatu\ nilai\ dari\ keadaan\ suatu\ objek\ tetapi\ memiliki\ parameter
+comment5.params=
+comment5.target=Point\ getEnd()
+comment5.text=\ method\ Accessor\ ini\ yang\ digunakan\ untuk\ mengembalikan\r\nnilai\ dari\ end
+comment6.params=end
+comment6.target=void\ setEnd(Point)
+comment6.text=\ method\ Mutator\ yang\ digunakan\ untuk\ mengubah\r\nsuatu\ nilai\ dari\ keadaan\ suatu\ objek\ tetapi\ memiliki\ parameter
+numComments=7

@@ -1,0 +1,5 @@
+Apakah perbedaan method overriding dan method overloading? Apakah kedua konsep tersebut terkait dengan inheritance dan polimorfisme.
+
+Jawaban :
+Method overloading ada pada class yang memiliki nama method sama tapi memiliki parameter dan tipe data yang berbeda. Method overriding terjadi pada class yang berbeda dan memiliki nama yang sama, biasanya terjadi pada kasus inharitance. method pada subclassnya akan menimpa method dari super classnya.
+ya, kedua hal tersebut terkait dengan inheritance dan polimorfisme 

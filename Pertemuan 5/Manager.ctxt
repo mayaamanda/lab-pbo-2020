@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Manajer
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Manager\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=nama\ gaji\ departemen
+comment1.target=Manajer(java.lang.String,\ double,\ java.lang.String)
+comment1.text=\ method\ constructor\ ini\ digunakan\r\nuntuk\ menciptakan\ suatu\ objek\ dengan\ parameter
+comment2.params=departemen
+comment2.target=void\ setDepartemen(java.lang.String)
+comment2.text=\ method\ Mutator\ yang\ digunakan\ untuk\ mengubah\r\nsuatu\ nilai\ dari\ keadaan\ suatu\ objek\ tetapi\ memiliki\ parameter
+comment3.params=
+comment3.target=java.lang.String\ getDepartemen()
+comment3.text=\ method\ Accessor\ ini\ yang\ digunakan\ untuk\ mengembalikan\r\nnilai\ dari\ departemen
+numComments=4

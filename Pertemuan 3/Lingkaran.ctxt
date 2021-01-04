@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Lingkaran
+comment1.params=jari
+comment1.target=Lingkaran(double)
+comment2.params=jari
+comment2.target=void\ setJariJari(double)
+comment3.params=
+comment3.target=double\ getJariJari()
+numComments=4

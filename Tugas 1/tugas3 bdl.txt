@@ -1,0 +1,135 @@
+CREATE OR REPLACE 
+PROCEDURE N1 (p_nip IN DOSEN.NIP%TYPE,p_semester IN mata_kuliah.semester%TYPE) 
+IS
+    nip DOSEN.NIP%TYPE;
+    nama DOSEN.NAMA%TYPE;
+    jumlah_mk NUMBER;
+BEGIN
+    SELECT d.nip,nama, COUNT(kode_mk)
+    INTO nip,nama,jumlah_mk
+    FROM DOSEN d INNER JOIN mata_kuliah m 
+    ON d.nip = m.nip
+    WHERE d.nip = p_nip AND semester = p_semester
+    GROUP BY d.nip, d.nama;
+    
+    DBMS_OUTPUT.PUT_LINE('NIP : '|| nip);
+    DBMS_OUTPUT.PUT_LINE('Nama Dosen : ' || nama);
+    DBMS_OUTPUT.PUT_LINE('Jumlah MK : ' || jumlah_mk);
+END N1;
+
+CREATE OR REPLACE 
+PROCEDURE pertama ( dnip IN DOSEN.NIP%TYPE)
+AS
+    CURSOR arr
+    IS 
+SELECT * FROM aktivitas_lain WHERE nip=dnip;
+    varr arr%ROWTYPE;
+BEGIN
+    OPEN arr;
+    LOOP
+    FETCH arr INTO varr;
+    EXIT WHEN arr%notfound;
+    
+    DBMS_OUTPUT.PUT_LINE('NIP : '|| varr.nip);
+    DBMS_OUTPUT.PUT_LINE('Nama Kegiatan : ' || varr.nama_kegiatan);
+    DBMS_OUTPUT.PUT_LINE('Lokasi : ' || varr.lokasi);
+    DBMS_OUTPUT.PUT_LINE('Peran : ' || varr.peran);
+    DBMS_OUTPUT.PUT_LINE('Tanggal Mulai : ' || varr.tgl_mulai);
+    DBMS_OUTPUT.PUT_LINE('Tanggal Akhir : ' || varr.tgl_Akhir);
+    DBMS_OUTPUT.PUT_LINE('Deskripsi : ' || varr.deskripsi);
+END LOOP;
+CLOSE arr;
+end pertama;
+
+set serveroutput on;
+EXECUTE pertama ('101023550001')
+
+CREATE OR REPLACE
+PROCEDURE N3 ( mprodi IN dosen.prodi%TYPE, mfakultas IN dosen.fakultas%TYPE)
+AS 
+jumlah NUMBER;
+BEGIN
+SELECT COUNT (d.prodi) INTO jumlah FROM dosen d INNER JOIN publikasi p ON d.nip = p.nip
+WHERE d.prodi = mprodi AND d. fakultas=mfakultas
+GROUP BY d.prodi;
+DBMS_OUTPUT.PUT_LINE('jumlah publikasi : ' || jumlah);
+END N3;
+
+set serveroutput on;
+EXECUTE N3 ('Ekonomi Bisnis', 'Ekonomi');
+
+CREATE OR REPLACE
+PROCEDURE N4 (dnip IN dosen.nip%TYPE, dnama IN dosen.nama%TYPE, dprodi IN dosen.prodi%TYPE, 
+dfakultas IN dosen.fakultas%TYPE, demail IN dosen.email%TYPE, djabatan IN dosen.jabatan%TYPE, 
+dpangkat IN dosen.pangkat%TYPE, dno_hp IN dosen.no_hp%TYPE)
+AS
+BEGIN
+INSERT INTO dosen VALUES (dnip, dnama, dprodi, dfakultas, dno_hp, demail, djabatan, dpangkat);
+END N4;
+
+execute N4 ('101023550003', 'shandi alana', 'Pebankan', '082356661790', "Ekonomi", 'shandi@gmail.com',
+'Lektor', 'Penata TK.2');
+select * from dosen;
+
+CREATE OR REPLACE
+FUNCTION N5 (dprodi IN dosen.prodi%TYPE)
+RETURN NUMBER
+AS
+prodi dosen.prodi%TYPE;
+jumlah_dosen NUMBER;
+BEGIN 
+SELECT d.prodi, COUNT (d.nama) INTO prodi, jumlah_dosen FROM dosen d 
+WHERE d.prodi = dprodi
+GROUP BY d.prodi;
+RETURN jumlah_dosen;
+END N5;
+
+SELECT N5 ('Matematika') AS "jumlah dosen Matematika" FROM dual;
+
+CREATE OR REPLACE
+FUNCTION N6 (dnip IN dosen.nip%TYPE, dtahun_publikasi IN publikasi.tahun%TYPE)
+RETURN NUMBER
+AS
+nip dosen.nip%TYPE;
+tahun_publikasi publikasi.tahun%TYPE;
+jumlah_publikasi NUMBER;
+BEGIN
+SELECT d.nip, p.tahun, COUNT(d.nip) INTO nip, tahun_publikasi, jumlah_publikasi
+FROM dosen d INNER JOIN publikasi p ON d.nip = p.nip
+WHERE d.nip = dnip GROUP BY d.nip, p.tahun;
+RETURN jumlah_publikasi;
+END N6;
+
+SELECT N6('101023550003', '2018') AS "jumlah publikasi" FROM dual;
+
+
+CREATE OR REPLACE
+FUNCTION N7 (djenjang IN pendidikan.jenjang%TYPE, dprodi IN dosen.prodi%TYPE, dfakultas IN dosen.fakultas%TYPE)
+RETURN NUMBER
+AS
+jenjang pendidikan.jenjang%TYPE;
+prodi dosen.prodi%TYPE;
+fakultas dosen.fakultas%TYPE;
+total NUMBER;
+BEGIN
+SELECT p.jenjang, d.prodi, d.fakultas, COUNT(p.nip) INTO jenjang, prodi, fakultas, total
+FROM dosen d INNER JOIN pendidikan p ON d.nip = p.nip
+WHERE p.jenjang = djenjang AND d.prodi = dprodi AND d.fakultas = dfakultas
+GROUP BY p.jenjang, d.prodi, d.fakultas;
+RETURN total;
+END N7;
+
+SELECT N7('S3', 'Informatika', 'MIPA') AS "jumlah DOSEN" FROM dual;
+
+CREATE OR REPLACE
+FUNCTION N8 (dhuruf_awal IN VARCHAR)
+RETURN VARCHAR2
+AS
+nama_dosen dosen.nama%TYPE;
+BEGIN
+SELECT nama INTO nama_dosen FROM dosen
+WHERE nama LIKE dhuruf_awal || '%';
+RETURN nama_dosen;
+END N8;
+
+SELECT N8 ('A') FROM dual;
